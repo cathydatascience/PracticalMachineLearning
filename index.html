@@ -230,7 +230,7 @@ dim(training.Pre); dim(prediction.set)</code></pre>
 <div id="part-ii.-exploratory-analysis" class="section level2">
 <h2>Part II. Exploratory Analysis</h2>
 <p>The variable we try to predict “classe”, the last variable in the train dataset, is a factor varible that has five levels. It has no missing values.</p>
-<p>After looking at the structure of the train dataset, we see that the first 5 variables (which are X, user_names and timestamp) are unrelated in prediction. So, we do not include them in the final dataset.</p>
+<p>After looking at the structure of the train dataset, we see that the first 5 variables (which are X, user_names and timestamp) are unrelated in prediction. So, we do not include them in the final dataset. There are 155 variables.</p>
 <p>Then, we randomly split the dataset into training and testing sets. The typically picked proportion is 70% used for the training set and 30% for the testing set.</p>
 <pre class="r"><code>library(caret)</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
@@ -351,7 +351,7 @@ training&lt;-training.Pre[inTrain, ]
 testing&lt;-training.Pre[-inTrain, ]</code></pre>
 <div id="a.-missing-values" class="section level3">
 <h3>A. Missing Values</h3>
-<p>Out of 160 variables in the training set, 62 variables have all NAs and the remaining 88 have no missing values. The case is clear cut and we will remove the variables that have no information for prediction. The number of predictors is now reduced to 88 variables in the training set.</p>
+<p>Out of 155 variables in the training set, 67 variables have all NAs and the remaining 88 have no missing values. The case is clear cut and we will remove the variables that have no information for prediction. The number is now reduced to 88 variables in the training set.</p>
 <pre class="r"><code>table(colSums(is.na(training)))</code></pre>
 <pre><code>## 
 ##     0 13454 
@@ -361,10 +361,9 @@ testing&lt;-training.Pre[-inTrain, ]</code></pre>
 <div id="b.-remove-near-zero-variance-predictors" class="section level3">
 <h3>B. Remove Near Zero Variance Predictors</h3>
 <p>When a predictor has only one or few unique values relative to the number of observations in the dataset, it does not have enough variation to explain the outcome variable. When our purpose is to make accurate prediction, we can remove those variables from the dataset. The number of variables is now down to 54 which includes the outcome variable “classe”.</p>
-<pre class="r"><code>nsv&lt;-nearZeroVar(training, saveMetrics=TRUE)
-keep&lt;-nsv$nzv==FALSE
+<pre class="r"><code>nsv&lt;-nearZeroVar(training)
 
-training&lt;-training[, row.names(nsv)[keep]]</code></pre>
+training&lt;-training[, -nsv]</code></pre>
 </div>
 </div>
 <div id="part-iii.-model-building" class="section level2">
