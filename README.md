@@ -1,4 +1,7 @@
 # PracticalMachineLearning
-Repository for JHU Data Science Coursera - Project
+Hello! This is the final class project repository for Practical Machine Learning class from JHU Data Science Coursera. 
 
-It is a test to commit material to Github. 
+The project markdown file is [here](./ClassProject.rmd)
+
+The project html file is [here](./ClassProject.html)
+
